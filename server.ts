@@ -1,5 +1,6 @@
-import app from "@src/app";
+import { App } from "@src/app";
 
-app.listen(3000, () => {
-  console.log("server start");
-});
+const app = new App()
+
+// run http server
+app.runServer()
