@@ -7,7 +7,7 @@
     "start": "npm run build:tsc && cross-env NODE_ENV=production node build/server.js",
     "dev": "cross-env NODE_ENV=development nodemon",
     "build:tsc": "rm -r build && tsc && tsc-alias",
-    "lint": "eslint --ignore-path .gitignore --ext .ts src/",
+    "lint": "eslint --ignore-path .gitignore --ext .ts server.ts src/",
     "lint:fix": "npm run lint -- --fix"
   },
   "keywords": [],
@@ -17,7 +17,6 @@
     "cross-env": "^7.0.3",
     "dotenv": "^16.0.1",
     "express": "^4.18.2",
-    "module-alias": "^2.2.3",
     "ts-node": "^10.9.1",
     "tsc": "^2.0.4"
   },
