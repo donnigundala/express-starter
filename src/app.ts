@@ -1,5 +1,9 @@
 import express from 'express';
 import 'dotenv/config'
+import cors from 'cors';
+import helmet from 'helmet';
+import morgan from 'morgan';
+import compression from 'compression';
 import { logger, stream } from '@utils/winston.util';
 import appConfig from "@src/config/app.config";
 
@@ -14,6 +18,10 @@ export class App {
     this.env = appConfig.env
   }
 
+  public getServer() {
+    return this.app
+  }
+
   public runServer() {
     this.app.listen(this.port, () => {
       logger.info(`=================================`);
@@ -24,7 +32,10 @@ export class App {
   }
 
   private initializeMiddlewares() {
-    // use middleware here
+    this.app.use(morgan(appConfig.morgan.format, { stream }));
+    this.app.use(cors({ origin: '*' }));
+    this.app.use(helmet());
+    this.app.use(compression());
   }
 
   private initializeRoutes() {
