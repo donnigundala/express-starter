@@ -6,8 +6,10 @@ const appConfig = {
     port: process.env.PORT || 3000
   },
   winston: {
-    logFormat: process.env.LOG_FORMAT || 'dev',
     logDir: '../../logs'
+  },
+  morgan: {
+    format: process.env.MORGAN_FORMAT || 'dev',
   }
 }
 
