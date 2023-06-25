@@ -23,7 +23,8 @@
     "paths": {
       "@/*": ["*"],
       "@src/*": ["src/*"],
-      "@configs/*": ["configs/*"]
+      "@config/*": ["src/config/*"],
+      "@utils/*": ["src/utils/*"]
     }
   },
   "include": [
