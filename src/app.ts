@@ -4,6 +4,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import compression from 'compression';
+import hpp from 'hpp'
 import { logger, stream } from '@utils/winston.util';
 import appConfig from "@src/config/app.config";
 
@@ -16,6 +17,8 @@ export class App {
     this.app = express();
     this.port = Number(appConfig.server.port)
     this.env = appConfig.env
+
+    this.initializeMiddlewares()
   }
 
   public getServer() {
@@ -36,6 +39,11 @@ export class App {
     this.app.use(cors({ origin: '*' }));
     this.app.use(helmet());
     this.app.use(compression());
+    // @ts-ignore
+    this.app.use(express.json());
+    // @ts-ignore
+    this.app.use(express.urlencoded({ extended: true }));
+    this.app.use(hpp())
   }
 
   private initializeRoutes() {
