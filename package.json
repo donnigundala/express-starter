@@ -13,8 +13,12 @@
     "prettier:fix": "prettier --write **/*.ts"
   },
   "keywords": [],
-  "author": "",
+  "author": "donnigundala",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "uri": "https://github.com/donnigundala/express-starter.git"
+  },
   "dependencies": {
     "@types/hpp": "^0.2.2",
     "compression": "^1.7.4",
