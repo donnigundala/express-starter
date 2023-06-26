@@ -1,9 +1,10 @@
 import * as process from "process";
 
 const appConfig = {
-  env: process.env.NODE_ENV,
+  env: process.env.NODE_ENV || 'development',
   server: {
-    port: process.env.PORT || 3000
+    port: process.env.PORT || 3000,
+    host: process.env.HOST || '0.0.0.0'
   },
   winston: {
     logDir: '../../logs'
