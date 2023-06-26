@@ -5,20 +5,26 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import compression from 'compression';
 import hpp from 'hpp'
-import { logger, stream } from '@utils/winston.util';
+import { stream } from '@utils/winston.util';
+import { routeNotFoundMiddleware, errorMiddleware } from '@middlewares/error.middleware';
 import appConfig from "@src/config/app.config";
 
 export class App {
   public app: express.Application
   public env: string
+  public host: string
   public port: number | string
 
   constructor() {
     this.app = express();
-    this.port = Number(appConfig.server.port)
     this.env = appConfig.env
+    this.host = appConfig.server.host === '0.0.0.0'
+      ? '127.0.0.1'
+      : appConfig.server.host
+    this.port = Number(appConfig.server.port)
 
     this.initializeMiddlewares()
+    this.initializeErrorHandling()
   }
 
   public getServer() {
@@ -27,10 +33,10 @@ export class App {
 
   public runServer() {
     this.app.listen(this.port, () => {
-      logger.info(`=================================`);
-      logger.info(`======= ENV: ${this.env} =======`);
-      logger.info(`🚀 App listening on the port ${this.port}`);
-      logger.info(`=================================`);
+      console.log('---------------- 🚀 SERVER STARTED ----------------')
+      console.log(`             environment: ${this.env}`)
+      console.log(`       Server Address: http://${this.host}:${this.port}`)
+      console.log('---------------------------------------------------')
     })
   }
 
@@ -53,6 +59,7 @@ export class App {
   }
 
   private initializeErrorHandling() {
-    // this.app.use(ErrorMiddleware);
+    this.app.use(routeNotFoundMiddleware)
+    this.app.use(errorMiddleware);
   }
 }
